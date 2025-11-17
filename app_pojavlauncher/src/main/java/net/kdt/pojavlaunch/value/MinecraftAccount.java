@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.util.Base64;
 
 import androidx.annotation.Keep;
-import androidx.annotation.Nullable;
 
 import org.apache.commons.io.IOUtils;
 
@@ -50,7 +49,7 @@ public class MinecraftAccount {
     }
 
     public boolean isDemo(){
-        return username.startsWith("Demo.");
+        return false;
     }
     
     public void updateSkinFace() {
@@ -69,7 +68,7 @@ public class MinecraftAccount {
     public static MinecraftAccount parse(String content) throws JsonSyntaxException {
         return Tools.GLOBAL_GSON.fromJson(content, MinecraftAccount.class);
     }
-    @Nullable
+
     public static MinecraftAccount load(String name) {
         if(!accountExists(name)) return null;
         try {
@@ -93,7 +92,7 @@ public class MinecraftAccount {
                 acc.msaRefreshToken = "0";
             }
             return acc;
-        } catch(NullPointerException | IOException | JsonSyntaxException e) {
+        } catch(IOException | JsonSyntaxException e) {
             Log.e(MinecraftAccount.class.getName(), "Caught an exception while loading the profile",e);
             return null;
         }
@@ -128,4 +127,4 @@ public class MinecraftAccount {
     private static boolean accountExists(String username){
         return new File(Tools.DIR_ACCOUNT_NEW + "/" + username + ".json").exists();
     }
-}
+                        }
